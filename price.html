@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>楓幣 ↔ 里程換算器</title>
+<style>
+     .yi{
+        color: red;
+        font-weight: bold;
+    }
+
+    .wan{
+
+        font-weight: bold;
+    }
+</style>
+
+</head>
+<body>
+<img src="5.png" style="float:left; /* 圖片在左邊 */ width: 70%;top:-5px;left: 0;position: absolute;">
+<div class="container" style="float: right;  /* 文字在右邊 */ ">
+    
+    <h2>楓幣里程換算器</h2>
+
+    <div class="input-group">
+        <label>
+            1000萬楓幣可換多少里程？
+        </label><br>
+        <input 
+            type="number" 
+            id="mileageInput" 
+            placeholder="輸入里程"
+            oninput="calculate()"
+        >
+    </div>
+
+    <div class="result" id="result">
+        請輸入里程數...
+    </div>
+</div>
+<div class="itemprice" id="itemprice6500" style="display:block;position: absolute;left: 135px;top:115px"></div>
+<div class="itemprice" id="itemprice17500" style="display:block;position: absolute;left: 135px;top:201px"></div>
+<div class="itemprice" id="itemprice33100" style="display:block;position: absolute;left: 135px;top:287px"></div>
+<div class="itemprice" id="itemprice62400" style="display:block;position: absolute;left: 135px;top:373px"></div>
+<div class="itemprice" id="itemprice12900" style="display:block;position: absolute;left: 135px;top:459px"></div>
+<div class="itemprice" id="itemprice34800" style="display:block;position: absolute;left: 135px;top:545.5px"></div>
+<div class="itemprice" id="itemprice65700" style="display:block;position: absolute;left: 135px;top:631px"></div>
+<div class="itemprice" id="itemprice123800" style="display:block;position: absolute;left: 135px;top:717px"></div>
+
+<div class="itemprice" id="itemprice200" style="display:block;position: absolute;left: 400px;top:115px"></div>
+<div class="itemprice" id="itemprice1800" style="display:block;position: absolute;left: 400px;top:201px"></div>
+<div class="itemprice" id="itemprice5400" style="display:block;position: absolute;left: 400px;top:287px"></div>
+<div class="itemprice" id="itemprice9900" style="display:block;position: absolute;left: 400px;top:373px"></div>
+<div class="itemprice" id="itemprice9900-2" style="display:block;position: absolute;left: 400px;top:459px"></div>
+<div class="itemprice" id="itemprice350" style="display:block;position: absolute;left: 400px;top:631px"></div>
+<div class="itemprice" id="itemprice3500" style="display:block;position: absolute;left: 400px;top:717px"></div>
+
+<div class="itemprice" id="itemprice990" style="display:block;position: absolute;left: 665px;top:115px"></div>
+<div class="itemprice" id="itemprice4400" style="display:block;position: absolute;left: 665px;top:201px"></div>
+<div class="itemprice" id="itemprice9900-3" style="display:block;position: absolute;left: 665px;top:287px"></div>
+<div class="itemprice" id="itemprice1200" style="display:block;position: absolute;left: 665px;top:373px"></div>
+<div class="itemprice" id="itemprice5100" style="display:block;position: absolute;left: 665px;top:459px"></div>
+<div class="itemprice" id="itemprice12000" style="display:block;position: absolute;left: 665px;top:545.5px"></div>
+
+<div class="itemprice" id="itemprice250" style="display:block;position: absolute;left: 930px;top:115px"></div>
+<div class="itemprice" id="itemprice1200-2" style="display:block;position: absolute;left: 930px;top:201px"></div>
+<div class="itemprice" id="itemprice3000" style="display:block;position: absolute;left: 930px;top:287px"></div>
+<div class="itemprice" id="itemprice350-2" style="display:block;position: absolute;left: 930px;top:373px"></div>
+<div class="itemprice" id="itemprice1700" style="display:block;position: absolute;left: 930px;top:459px"></div>
+<div class="itemprice" id="itemprice4300" style="display:block;position: absolute;left: 930px;top:545.5px"></div>
+<div class="itemprice" id="itemprice9900-4" style="display:block;position: absolute;left: 930px;top:631px"></div>
+<div class="itemprice" id="itemprice7100" style="display:block;position: absolute;left: 930px;top:717px"></div>
+<div class="itemprice" id="itemprice3900" style="display:block;position: absolute;left: 930px;top:802px"></div>
+<div class="itemprice" id="itemprice4800" style="display:block;position: absolute;left: 930px;top:887px"></div>
+
+<div class="itemprice" id="itemprice250" style="display:block;position: absolute;left: 1197px;top:115px"></div>
+<div class="itemprice" id="itemprice1200-2" style="display:block;position: absolute;left: 1197px;top:201px"></div>
+<div class="itemprice" id="itemprice3000" style="display:block;position: absolute;left: 1197px;top:287px"></div>
+<div class="itemprice" id="itemprice350-2" style="display:block;position: absolute;left: 1197px;top:373px"></div>
+<div class="itemprice" id="itemprice1700" style="display:block;position: absolute;left: 1197px;top:459px"></div>
+
+<div class="itemprice" id="itemprice4300" style="display:block;position: absolute;left: 1197px;top:567px"></div>
+<script>
+
+// 一般數字格式
+function formatNumber(num){
+    return Math.round(num).toLocaleString();
+}
+
+// 楓幣格式（億紅色粗體、萬藍色粗體）
+function formatMeso(num){
+
+    num = Math.round(num);
+
+    const yi = Math.floor(num / 100000000);
+    const remainAfterYi = num % 100000000;
+
+    const wan = Math.floor(remainAfterYi / 10000);
+    const remain = remainAfterYi % 10000;
+
+    // 小於1萬
+    if(num < 10000){
+        return num.toString();
+    }
+
+    // 小於1億
+    if(yi === 0){
+
+        if(remain === 0){
+            return wan + '<span class="wan">萬</span>';
+        }
+
+        return wan + '<span class="wan">萬</span>' + remain;
+    }
+
+    // 億以上
+    let html = yi + '<span class="yi">億</span>';
+
+    if(wan > 0){
+        html += wan + '<span class="wan">萬</span>';
+    }
+
+    if(remain > 0){
+        html += remain;
+    }
+
+    return html;
+}
+
+function calculate(){
+
+    const baseMeso = 10000000;
+    const mileage = parseFloat(
+        document.getElementById("mileageInput").value
+    );
+
+    const result = document.getElementById("result");
+
+    if(!mileage || mileage <= 0){
+        result.innerHTML = "請輸入有效里程數";
+        return;
+    }
+
+    // 每1里程價值
+    const mesoPerMileage = baseMeso / mileage;
+
+    // 商品
+
+    result.innerHTML = `
+        <div>
+            1里程 =
+            <span class="highlight">
+                ${formatNumber(mesoPerMileage)}
+            </span>
+            楓幣
+        </div>
+    `;
+
+    // 自動更新所有商城商品價格
+const items = document.querySelectorAll(".itemprice");
+
+items.forEach(item => {
+
+    // 從 id 抓數字，例如：
+    // itemprice6500 => 6500
+    // itemprice350-2 => 350
+    const match = item.id.match(/^itemprice(\d+)/);
+
+    if(!match) return;
+
+    const mileageCost = parseInt(match[1]);
+
+    // 算楓幣
+    const mesoPrice = mesoPerMileage * mileageCost;
+
+    // 更新文字
+    item.innerHTML = formatMeso(mesoPrice);
+
+    // 顯示出來（如果你之後改成預設 hidden）
+    item.style.display = "block";
+});
+}
+</script>
+
+</body>
+</html>
