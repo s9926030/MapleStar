@@ -1,153 +1,455 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>楓幣 ↔ 里程換算器</title>
-<style>
-     .yi{
-        color: red;
-        font-weight: bold;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楓幣 ↔ 里程換算器</title>
+    <style>
+        body {
+            
 
-    .wan{
-
-        font-weight: bold;
-    }
-</style>
-
-</head>
-<body>
-<img src="5.png" style="float:left; /* 圖片在左邊 */ width: 70%;top:-5px;left: 0;position: absolute;">
-<div class="container" style="float: right;  /* 文字在右邊 */ ">
-    
-    <h2>楓幣里程換算器</h2>
-
-    <div class="input-group">
-        <label>
-            1000萬楓幣可換多少里程？
-        </label><br>
-        <input 
-            type="number" 
-            id="mileageInput" 
-            placeholder="輸入里程"
-            oninput="calculate()"
-        >
-    </div>
-
-    <div class="result" id="result">
-        請輸入里程數...
-    </div>
-</div>
-<div class="itemprice" id="itemprice6500x30" style="display:block;position: absolute;left: 135px;top:115px"></div>
-<div class="itemprice" id="itemprice17500x90" style="display:block;position: absolute;left: 135px;top:201px"></div>
-<div class="itemprice" id="itemprice33100x180" style="display:block;position: absolute;left: 135px;top:287px"></div>
-<div class="itemprice" id="itemprice62400x360" style="display:block;position: absolute;left: 135px;top:373px"></div>
-<div class="itemprice" id="itemprice12900x30" style="display:block;position: absolute;left: 135px;top:459px"></div>
-<div class="itemprice" id="itemprice34800x90" style="display:block;position: absolute;left: 135px;top:545.5px"></div>
-<div class="itemprice" id="itemprice65700x180" style="display:block;position: absolute;left: 135px;top:631px"></div>
-<div class="itemprice" id="itemprice123800x360" style="display:block;position: absolute;left: 135px;top:717px"></div>
-
-<div class="itemprice" id="itemprice200" style="display:block;position: absolute;left: 400px;top:115px"></div>
-<div class="itemprice" id="itemprice1800x9" style="display:block;position: absolute;left: 400px;top:201px"></div>
-<div class="itemprice" id="itemprice5400x27" style="display:block;position: absolute;left: 400px;top:287px"></div>
-<div class="itemprice" id="itemprice9900" style="display:block;position: absolute;left: 400px;top:373px"></div>
-<div class="itemprice" id="itemprice9900-2" style="display:block;position: absolute;left: 400px;top:459px"></div>
-<div class="itemprice" id="itemprice350" style="display:block;position: absolute;left: 400px;top:631px"></div>
-<div class="itemprice" id="itemprice3500x11" style="display:block;position: absolute;left: 402px;top:716.5px"></div>
-
-<div class="itemprice" id="itemprice990" style="display:block;position: absolute;left: 665px;top:115px"></div>
-<div class="itemprice" id="itemprice4400x5" style="display:block;position: absolute;left: 665px;top:201px"></div>
-<div class="itemprice" id="itemprice9900x13-3" style="display:block;position: absolute;left: 665px;top:287px"></div>
-<div class="itemprice" id="itemprice1200" style="display:block;position: absolute;left: 665px;top:373px"></div>
-<div class="itemprice" id="itemprice5100x5" style="display:block;position: absolute;left: 665px;top:459px"></div>
-<div class="itemprice" id="itemprice12000x13" style="display:block;position: absolute;left: 665px;top:545px"></div>
-
-<div class="itemprice" id="itemprice250" style="display:block;position: absolute;left: 930px;top:115px"></div>
-<div class="itemprice" id="itemprice1200x5-2" style="display:block;position: absolute;left: 930px;top:201px"></div>
-<div class="itemprice" id="itemprice3000x13" style="display:block;position: absolute;left: 930px;top:287px"></div>
-<div class="itemprice" id="itemprice350-2" style="display:block;position: absolute;left: 930px;top:373px"></div>
-<div class="itemprice" id="itemprice1700x5" style="display:block;position: absolute;left: 930px;top:459px"></div>
-<div class="itemprice" id="itemprice4300x13" style="display:block;position: absolute;left: 930px;top:545px"></div>
-<div class="itemprice" id="itemprice9900-4" style="display:block;position: absolute;left: 930px;top:631px"></div>
-<div class="itemprice" id="itemprice7100" style="display:block;position: absolute;left: 930px;top:717px"></div>
-<div class="itemprice" id="itemprice3900" style="display:block;position: absolute;left: 930px;top:802px"></div>
-<div class="itemprice" id="itemprice4800" style="display:block;position: absolute;left: 930px;top:887px"></div>
-
-<div class="itemprice" id="itemprice3200x30" style="display:block;position: absolute;left: 1197px;top:115px"></div>
-<div class="itemprice" id="itemprice8600x90" style="display:block;position: absolute;left: 1197px;top:201px"></div>
-<div class="itemprice" id="itemprice16300x180" style="display:block;position: absolute;left: 1197px;top:287px"></div>
-<div class="itemprice" id="itemprice30700x360" style="display:block;position: absolute;left: 1197px;top:373px"></div>
-<div class="itemprice" id="itemprice7500" style="display:block;position: absolute;left: 1197px;top:459px"></div>
-
-<div class="itemprice" id="itemprice2900" style="display:block;position: absolute;left: 1197px;top:567px"></div>
-<script>
-
-// 一般數字格式
-function formatNumber(num){
-    return Math.round(num).toLocaleString();
-}
-
-// 楓幣格式（億紅色粗體、萬藍色粗體）
-function formatMeso(num){
-
-    num = Math.round(num);
-
-    const yi = Math.floor(num / 100000000);
-    const remainAfterYi = num % 100000000;
-
-    const wan = Math.floor(remainAfterYi / 10000);
-    const remain = remainAfterYi % 10000;
-
-    // 小於1萬
-    if(num < 10000){
-        return num.toString();
-    }
-
-    // 小於1億
-    if(yi === 0){
-
-        if(remain === 0){
-            return wan + '<span class="wan">萬</span>';
         }
 
-        return wan + '<span class="wan">萬</span>' + remain;
-    }
+        .yi {
+            color: red;
+            font-weight: bold;
+        }
 
-    // 億以上
-    let html = yi + '<span class="yi">億</span>';
+        .wan {
+            font-weight: bold;
+        }
 
-    if(wan > 0){
-        html += wan + '<span class="wan">萬</span>';
-    }
+        .itemimg {
+            border: 5px ridge #9BCDF0;
+            width: 72.9px; /*圖片大小*/
+        }
 
-    if(remain > 0){
-        html += remain;
-    }
+        .itemlabe {
+            background-color: #E8FFFF;
+            width: 300px;/*上方藍色區塊寬度*/
+            border: 5px solid #78ACE0;
+            white-space:nowrap;
+        }
 
-    return html;
-}
+        .itemlee {
+            background-color: #9BCDF0;
+            width: 300px;/*下方藍色區塊寬度*/
+            border: solid #78ACE0;
+            border-width: 0 5px 5px 5px;
+            height: 46.8px;/*下方藍色區塊高度*/
+        }
 
-function calculate(){
+        .itemtable {
+            border: 1px solid #000000;
+            width: 310px;/*邊框黑線寬度*/
+        }
 
-    const baseMeso = 10000000;
-    const mileage = parseFloat(
-        document.getElementById("mileageInput").value
-    );
+        .leeimg {
+            width: 20px;/*里程圖片大小*/
+        }
 
-    const result = document.getElementById("result");
+        .itemprice {
+            position: relative;
+        }
 
-    if(!mileage || mileage <= 0){
-        result.innerHTML = "請輸入有效里程數";
-        return;
-    }
+        .allwrap {
+            display: flex;
+            gap: 0px;
+            align-items: flex-start;
+        }
 
-    // 每1里程價值
-    const mesoPerMileage = baseMeso / mileage;
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+        }
 
-    // 商品
+        /* css去掉input的箭頭 */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        .member-form,.rpo-form input[type="number"] {
+            -moz-appearance: textfield;
+        }
 
-    result.innerHTML = `
+        #mileageInput{ /*輸入里程數框框*/
+            position: relative;
+            top:-2px;
+            left: 0px;
+            width: 80px;
+            height: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .change{
+            background-image: url("image/0-3.png");
+            width: 300px;
+            height: 55px;
+            display: flex;
+            align-items: center;      /* 垂直置中 */
+            justify-content: center;  /* 水平置中 */
+            font-size:20px;
+            color: #A3E5E5;
+            border-radius: 10px;
+            
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="change">
+            <label>1千萬楓幣:
+            <input type="number" id="mileageInput" placeholder="輸入里程" oninput="calculate()">&ensp;里程</label>
+        </div>
+        <div class="result" id="result" style="display: none;"></div>
+    </div>
+    <div class="allwrap">
+        <div class="column">
+            <div class="itemtable">
+                <img src="image/1.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">30天時裝使用劵</div>
+                <div class="itemlee">6500里程<span class="itemprice" id="itemprice6500x30"></span></div>
+            </div>
+
+            <div class="itemtable">
+                <img src="image/1.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">90天時裝使用劵</div>
+                <div class="itemlee">17500里程<span class="itemprice" id="itemprice17500x90"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/1.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">180天時裝使用劵</div>
+                <div class="itemlee">33100里程<span class="itemprice" id="itemprice33100x180"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/1.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">360天時裝使用劵</div>
+                <div class="itemlee">62400里程<span class="itemprice" id="itemprice62400x360"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/2.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">30天拍賣場優待劵</div>
+                <div class="itemlee">12900里程<span class="itemprice" id="itemprice12900x30"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/2.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">90天拍賣場優待劵</div>
+                <div class="itemlee">34800里程<span class="itemprice" id="itemprice34800x90"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/2.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">180天拍賣場優待劵</div>
+                <div class="itemlee">65700里程<span class="itemprice" id="itemprice65700x180"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/2.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">360天拍賣場優待劵</div>
+                <div class="itemlee">123800里程<span class="itemprice" id="itemprice123800x360"></span></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="itemtable">
+                <img src="image/3.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">瞬間移動世界地圖</div>
+                <div class="itemlee">200里程<span class="itemprice" id="itemprice200"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/3.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">瞬間移動世界地圖（9個）</div>
+                <div class="itemlee">1800里程<span class="itemprice" id="itemprice1800x9"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/3.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">瞬間移動世界地圖（27個）</div>
+                <div class="itemlee">5400里程<span class="itemprice" id="itemprice5400x27"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/4.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">SP初始化卷軸</div>
+                <div class="itemlee">9900里程<span class="itemprice" id="itemprice9900"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/5.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">SP初始化卷軸</div>
+                <div class="itemlee">9900里程<span class="itemprice" id="itemprice9900-2"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/6.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">天氣</div>
+                <div class="itemlee">350里程<span class="itemprice" id="itemprice350"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/6.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">天氣（11個）</div>
+                <div class="itemlee">3500里程<span class="itemprice" id="itemprice3500x11"></span></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="itemtable">
+                <img src="image/7.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">高效能喇叭</div>
+                <div class="itemlee">990里程<span class="itemprice" id="itemprice990"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/7.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">高效能喇叭（5個）</div>
+                <div class="itemlee">4400里程<span class="itemprice" id="itemprice4400x5"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/7.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">高效能喇叭（13個）</div>
+                <div class="itemlee">9900里程<span class="itemprice" id="itemprice9900x13-3"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/8.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">道具喇叭</div>
+                <div class="itemlee">1200里程<span class="itemprice" id="itemprice1200"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/8.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">道具喇叭（5個）</div>
+                <div class="itemlee">5100里程<span class="itemprice" id="itemprice5100x5"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/8.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">道具喇叭（13個）</div>
+                <div class="itemlee">12000里程<span class="itemprice" id="itemprice12000x13"></span></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="itemtable">
+                <img src="image/9.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">護身符</div>
+                <div class="itemlee">250里程<span class="itemprice" id="itemprice250"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/9.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">護身符（5個）</div>
+                <div class="itemlee">1200里程<span class="itemprice" id="itemprice1200x5-2"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/9.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">護身符（13個）</div>
+                <div class="itemlee">3000里程<span class="itemprice" id="itemprice3000x13"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/10.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">原地復活數</div>
+                <div class="itemlee">350里程<span class="itemprice" id="itemprice350"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/10.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">原地復活數（5個）</div>
+                <div class="itemlee">1700里程<span class="itemprice" id="itemprice1700x5"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/10.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">原地復活數（13個）</div>
+                <div class="itemlee">4300里程<span class="itemprice" id="itemprice4300x13"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/11.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">角色欄位擴充劵</div>
+                <div class="itemlee">9900里程<span class="itemprice" id="itemprice9900-4"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/12.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">白金神奇剪刀</div>
+                <div class="itemlee">7100里程<span class="itemprice" id="itemprice7100"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/13.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">神奇剪刀</div>
+                <div class="itemlee">3900里程<span class="itemprice" id="itemprice3900"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/14.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">欄位擴充劵</div>
+                <div class="itemlee">4800里程<span class="itemprice" id="itemprice4800"></span></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="itemtable">
+                <img src="image/15.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">生命之水</div>
+                <div class="itemlee">3200里程<span class="itemprice" id="itemprice3200x30"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/15.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">生命之水（90天）</div>
+                <div class="itemlee">8600里程<span class="itemprice" id="itemprice8600x90"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/15.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">生命之水（180天）</div>
+                <div class="itemlee">16300里程<span class="itemprice" id="itemprice16300x180"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/15.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">生命之水（360天）</div>
+                <div class="itemlee">30700里程<span class="itemprice" id="itemprice30700x360"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/16.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">寵物</div>
+                <div class="itemlee">7500里程<span class="itemprice" id="itemprice7500"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/17.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">寵物裝備</div>
+                <div class="itemlee">2900里程<span class="itemprice" id="itemprice2900"></span></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="itemtable">
+                <img src="image/18.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-武器</div>
+                <div class="itemlee">5900里程<span class="itemprice" id="itemprice5900"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/19.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-帽子</div>
+                <div class="itemlee">3500里程<span class="itemprice" id="itemprice3500-3"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/20.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-飾品</div>
+                <div class="itemlee">3200里程<span class="itemprice" id="itemprice3200-2"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/21.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-上衣</div>
+                <div class="itemlee">4300里程<span class="itemprice" id="itemprice4300-2"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/22.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-套服</div>
+                <div class="itemlee">4900里程<span class="itemprice" id="itemprice4900"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/23.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-褲/裙</div>
+                <div class="itemlee">3900里程<span class="itemprice" id="itemprice3900-2"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/24.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-鞋子</div>
+                <div class="itemlee">2500里程<span class="itemprice" id="itemprice2500"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/25.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-手套</div>
+                <div class="itemlee">2500里程<span class="itemprice" id="itemprice2500-2"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/26.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-披風</div>
+                <div class="itemlee">3900里程<span class="itemprice" id="itemprice3900-3"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/27.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-飛鏢</div>
+                <div class="itemlee">9900里程<span class="itemprice" id="itemprice9900-5"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/28.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">時裝-其他</div>
+                <div class="itemlee">3200里程<span class="itemprice" id="itemprice3200-3"></span></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="itemtable">
+                <img src="image/29.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">膚色</div>
+                <div class="itemlee">9900里程<span class="itemprice" id="itemprice9900-6"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/30.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">臉型</div>
+                <div class="itemlee">3700里程<span class="itemprice" id="itemprice3700"></span></div>
+            </div>
+            <div class="itemtable">
+                <img src="image/31.png" class="itemimg" style="float:left; /* 圖片在左邊 */">
+                <div class="itemlabe">髮型</div>
+                <div class="itemlee">5900里程<span class="itemprice" id="itemprice5900-2"></span></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        // 一般數字格式
+        function formatNumber(num) {
+            return Math.round(num).toLocaleString();
+        }
+
+        // 楓幣格式（億紅色粗體、萬藍色粗體）
+        function formatMeso(num) {
+
+            num = Math.round(num);
+
+            const yi = Math.floor(num / 100000000);
+            const remainAfterYi = num % 100000000;
+
+            const wan = Math.floor(remainAfterYi / 10000);
+            const remain = remainAfterYi % 10000;
+
+            // 小於1萬
+            if (num < 10000) {
+                return num.toString();
+            }
+
+            // 小於1億
+            if (yi === 0) {
+
+                if (remain === 0) {
+                    return wan + '<span class="wan">萬</span>';
+                }
+
+                return wan + '<span class="wan">萬</span>' + remain;
+            }
+
+            // 億以上
+            let html = yi + '<span class="yi">億</span>';
+
+            if (wan > 0) {
+                html += wan + '<span class="wan">萬</span>';
+            }
+
+            if (remain > 0) {
+                html += remain;
+            }
+
+            return html;
+        }
+
+        function calculate() {
+
+            const baseMeso = 10000000;
+            const mileage = parseFloat(
+                document.getElementById("mileageInput").value
+            );
+
+            const result = document.getElementById("result");
+
+            if (!mileage || mileage <= 0) {
+                result.innerHTML = "請輸入有效里程數";
+                return;
+            }
+
+            // 每1里程價值
+            const mesoPerMileage = baseMeso / mileage;
+
+            // 商品
+
+            result.innerHTML = `
         <div>
             1里程 =
             <span class="highlight">
@@ -157,45 +459,45 @@ function calculate(){
         </div>
     `;
 
-    // 自動更新所有商城商品價格
-const items = document.querySelectorAll(".itemprice");
+            // 自動更新所有商城商品價格
+            const items = document.querySelectorAll(".itemprice");
 
-items.forEach(item => {
+            items.forEach(item => {
 
-    // 支援：
-    // itemprice6500
-    // itemprice3500x11
-    // itemprice3500x11-2
-    // itemprice9900x13-3
-    const match = item.id.match(/^itemprice(\d+)(?:x(\d+))?/);
+                // 支援：
+                // itemprice6500
+                // itemprice3500x11
+                // itemprice3500x11-2
+                // itemprice9900x13-3
+                const match = item.id.match(/^itemprice(\d+)(?:x(\d+))?/);
 
-    if (!match) return;
+                if (!match) return;
 
-    const totalMileage = parseInt(match[1]);
-    const bundleCount = match[2] ? parseInt(match[2]) : null;
+                const totalMileage = parseInt(match[1]);
+                const bundleCount = match[2] ? parseInt(match[2]) : null;
 
-    // 總楓幣
-    const totalMeso = mesoPerMileage * totalMileage;
+                // 總楓幣
+                const totalMeso = mesoPerMileage * totalMileage;
 
-    let html = formatMeso(totalMeso);
+                let html = formatMeso(totalMeso);
 
-    // 有組合包才算單個
-    if(bundleCount){
+                // 有組合包才算單個
+                if (bundleCount) {
 
-        const unitMeso = totalMeso / bundleCount;
+                    const unitMeso = totalMeso / bundleCount;
 
-        html += "<br>";
-        html += "<span style='font-size:12px; position: absolute;top:-19px;left:60px; white-space:nowrap;'>";
-        html += "<span>1=</span> " + formatMeso(unitMeso);
-        html += "</span>";
-    }
+                    html += "<span style='font-size:12px; white-space:nowrap;'>";
+                    html += "(<span>1=</span> " + formatMeso(unitMeso) + ")";
+                    html += "</span>";
+                }
 
-    item.innerHTML = html;
-    item.style.display = "block";
-});
+                item.innerHTML = html;
+                item.style.display = "block";
+            });
 
-}
-</script>
+        }
+    </script>
 
 </body>
+
 </html>
